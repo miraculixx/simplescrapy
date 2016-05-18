@@ -1,7 +1,8 @@
 # simplescrapy
 simple scrapy test
 
-this tests a scripted mass crawler
+this tests a scripted mass crawler and provides a solution to keep scrapy
+happy.
 
 ## setup
 
@@ -52,13 +53,33 @@ done.
 ```
 
 3. Run a test with say 1500 spiders launched. This will start to fail, 
-see errors below
+see errors below. Note this uses a CrawlerProcess as documented in the
+scrapy documents.
 
 ```
-$ scrapy runscript test -n 1500
+$ scrapy runscript test -n 1500 -X
 (...)
 2016-05-18 01:55:26 [scrapy] ERROR: Error downloading <GET http://localhost:5151/robots.txt>: DNS lookup failed: address 'localhost' not found: [Errno 11] Resource temporarily unavailable.
 DNSLookupError: DNS lookup failed: address 'localhost' not found: [Errno 11] Resource temporarily unavailable.
 ```
+
+4. Run a test with say 1500 spiders, batched in sizes of 10% of -n. This uses
+the BatchableCrawlerProcess.
+
+```
+$ scrapy runscript test -n 1500
+Started 150 crawlers
+Started 300 crawlers
+Started 450 crawlers
+Started 600 crawlers
+Started 750 crawlers
+Started 900 crawlers
+Started 1050 crawlers
+Started 1200 crawlers
+Started 1350 crawlers
+Started 1499 crawlers
+done.
+```
+
 
 

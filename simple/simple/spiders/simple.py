@@ -29,7 +29,7 @@ class TestSpider(scrapy.Spider):
     start_urls = (
         'http://localhost:5151',
     )
-
+    
     def parse(self, response):
         item = TestItem()
         item['text'] = response.body
